@@ -1,0 +1,12 @@
+= form_for @answer do |f|
+  - if @answer.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@answer.errors.count, "error")} prohibited this answer from being saved:"
+      ul
+        - @answer.errors.full_messages.each do |message|
+          li = message
+  .form-group
+    = f.text_area :text, placeholder: "Ответ", class: "form-control"
+    = f.hidden_field :question_id, value: params[:id]
+  .form-group
+    = f.submit 'Ответить', class: "btn btn-primary block full-width m-b"

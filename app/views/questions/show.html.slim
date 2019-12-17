@@ -1,0 +1,28 @@
+.row
+  .col-md-1
+  .col-md-6
+    - if current_user
+      = link_to('Выйти', destroy_user_session_path, method: :delete)
+    - else
+      = link_to new_user_session_path, class: "btn btn-primary" do
+      = 'Войти'
+      = link_to new_user_registration_path, class: "btn btn-primary" do
+      = 'Зарегистрироваться'
+hr/
+
+
+.row
+  .col-md-1
+  .col-md-10
+    h1= @question.title
+    p
+    = @question.text
+    br/
+    b= "#{@question.user.first_name} #{@question.user.last_name} "
+    = "#{time_ago_in_words(@question.created_at)} назад"
+    hr/
+    - if current_user
+      == render '/answers/form'
+    hr/
+    - @question.answers.order(created_at: :desc).each do |a|
+      = render '/answers/answer', a: a

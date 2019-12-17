@@ -1,0 +1,35 @@
+hr/
+.row
+  .col-md-6
+
+.row
+  .col-md-1
+  .col-md-6
+    h1 Вопросы пользователей
+    - @questions.each do |q|
+      .card
+        .card-header
+          b= "#{q.user.first_name} #{q.user.last_name} "
+          = "#{time_ago_in_words(q.created_at)} назад"
+        .card-body
+          h5.card-title
+            = q.title
+          p.card-text
+            = q.text.truncate(100)
+          = link_to question_path(q), class: "btn btn-primary" do
+            | Перейти к вопросу
+
+  - if current_user
+    .col-md-4
+      == render 'form'
+      hr/
+      = link_to('Выйти', destroy_user_session_path, method: :delete)
+  - else
+    .col-md-4
+      .row
+        = link_to new_user_session_path, class: "btn btn-primary" do
+          = 'Войти'
+      br/
+      .row
+        = link_to new_user_registration_path, class: "btn btn-primary" do
+          = 'Зарегистрироваться'

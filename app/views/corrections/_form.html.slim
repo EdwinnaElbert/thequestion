@@ -1,0 +1,16 @@
+p
+  b Предложить правку:
+- @correction ||= Correction.new
+= form_for @correction do |f|
+  - if @correction.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@correction.errors.count, "error")} prohibited this correction from being saved:"
+      ul
+        - @correction.errors.full_messages.each do |message|
+          li = message
+  .form-group
+    = f.text_area    :text, placeholder: 'Текст правки', class: "form-control"
+    = f.hidden_field :user_id, value: current_user.id
+    = f.hidden_field :answer_id, value: a.id
+  .form-group
+    = f.submit 'Исправить', class: "btn btn-primary block full-width m-b"

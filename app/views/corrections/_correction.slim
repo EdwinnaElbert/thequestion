@@ -1,0 +1,9 @@
+= c.text
+br/
+- unless c.accepted_at.nil?
+  b= "#{c.user.first_name} #{c.user.last_name} "
+  br/
+  span.badge.badge-success
+    | Принято
+  span
+    = " #{time_ago_in_words(c.accepted_at)} назад"
