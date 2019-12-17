@@ -14,3 +14,35 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+$(document).on('turbolinks:load', function() {
+  $('.accept-correction').on('click', function() {
+    var correction_id = $(this).data('correction-id');
+    $('.hidden_form_' + correction_id).toggle()
+  })
+
+  $('.show_correction').on('mouseover', function() {
+    var diff_answer_id = $(this).data('diff-answer-id');
+    var answer_id = $(this).data('answer-id');
+
+    $.ajax({
+      type : "GET",
+      url : window.location.origin + '/diff_answers/' + diff_answer_id,
+      datatype : "json",
+      success : function(data) {
+        $('.answer_' + answer_id).html(data.data);
+    }});
+  })
+
+  $('.show_correction').on('mouseout', function() {
+    var diff_answer_id = $(this).data('diff-answer-id');
+    var answer_id = $(this).data('answer-id');
+
+    $.ajax({
+      type : "GET",
+      url : window.location.origin + '/answers/' + answer_id,
+      datatype : "json",
+      success : function(data) {
+        $('.answer_' + answer_id).html(data.data);
+    }});
+  })
+});

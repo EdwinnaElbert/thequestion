@@ -8,17 +8,17 @@
     .list-group
     - a.corrections.each do |c|
       - if c.diff_answer
-        .list-group-item.show_correction data-diff-answer-id="#{c.diff_answer.id}" data-answer-id="#{a.id}"
-          = render '/corrections/correction', c: c
+        .list-group-item
+          = render '/corrections/correction', c: c, a: a
       - else
         .list-group-item
-          = render '/corrections/correction', c: c
+          = render '/corrections/correction', c: c, a: a
       br/
       - if current_user && current_user == a.user && c.accepted_at.nil?
-        .btn.btn-primary.accept-correction Редактировать ответ
+        .btn.btn-primary.accept-correction data-correction-id="#{c.id}" Редактировать ответ
         br/
         br/
-        .hidden_form style='display: none'
+        .hidden_form class="hidden_form_#{c.id}" style='display: none'
           = render '/answers/correction_form', a: a, c: c
     - if current_user && current_user != a.user
       = render '/corrections/form', a: a
