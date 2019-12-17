@@ -29,7 +29,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
 gem 'devise'
 gem 'devise-i18n'
-gem 'diffy'
+gem 'diff-lcs'
 gem 'pg'
 gem 'rails-i18n'
 gem 'slim-rails'
